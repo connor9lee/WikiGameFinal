@@ -36,17 +36,19 @@ public class WikiGameFinal implements ActionListener {
         WikiGameFinal wiki = new WikiGameFinal();
         wiki.showEventDemo();
         //WikiGame w = new WikiGame();
-        wiki.WikiGame();
+        //wiki.WikiGame();
 
     }
-    public void WikiGame() {
+    public void WikiGame(String s, String e) {
 
-        String startLink = "https://en.wikipedia.org/wiki/Barack_Obama";  // beginning link, where the program will start
+        String startLink = s;//"https://en.wikipedia.org/wiki/Barack_Obama";  // beginning link, where the program will start
         alreadyClicked.add(startLink);
-        String endLink = "https://en.wikipedia.org/wiki/Tom_Holland";    // ending link, where the program is trying to get to
+        String endLink = e;//"https://en.wikipedia.org/wiki/Tom_Holland";    // ending link, where the program is trying to get to
         //String inLink = "Leonardo_Dicaprio"
         //maxDepth = 1;           // start this at 1 or 2, and if you get it going fast, increase
-        if (findLink(startLink, endLink, 0)) {
+//        if (findLink(startLink, endLink, 0)) {
+        if (findLink(s, e, 0)) {
+
             System.out.println("found it****");
             path.add(startLink);
         } else {
@@ -54,6 +56,8 @@ public class WikiGameFinal implements ActionListener {
         }
         for (int i = 2; i >=0; i--) {
             System.out.println(path.get(i));
+            c.append(path.get(i));
+            c.append("\n");
         }
 
     }
@@ -209,6 +213,7 @@ public class WikiGameFinal implements ActionListener {
 
 //                        System.out.println(line.substring(xResult, yResult));
                         String Links = "https://en.wikipedia.org" + line.substring(xResult, yResult);
+                        System.out.println("print");
                         if (!alreadyClicked.contains(Links) && !alreadyClicked.contains(":")){
                             alreadyClicked.add(Links);
                             System.out.println("*****" + Links);
@@ -226,6 +231,7 @@ public class WikiGameFinal implements ActionListener {
             }
 
         }
+        System.out.println("end of findLink, returning false");
         return false;
     }
     private class ButtonClickListener implements ActionListener {
@@ -233,10 +239,17 @@ public class WikiGameFinal implements ActionListener {
             String command = e.getActionCommand();
 
             if (command.equals("OK")) {
+                path.clear();
+                alreadyClicked.clear();
+//                depth = 0;
+//                findLink(depth.set(0));
                 aRealText = a.getText();
-                System.out.println(aRealText);
+//                System.out.println(aRealText);
 
-                findLink(a.getText(), b.getText(), 2);
+                System.out.println(a.getText());
+                System.out.println(b.getText());
+                WikiGame(a.getText(), b.getText());
+                //findLink(a.getText(), b.getText(), 2);
             } else if (command.equals("Submit")) {
                 statusLabel.setText("Submit Button clicked.");
             } else {
